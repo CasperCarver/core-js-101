@@ -82,7 +82,7 @@ function getRegexForPitSpot() {
  */
 function getPasswordValidator(minLength) {
   // eslint-disable-next-line no-useless-escape
-  const result = new RegExp(`/(?=\S+$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[0-9a-zA-Z!@#$%^&*]{${minLength},}/g`);
+  const result = new RegExp(`^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{${minLength},}$`);
   return result;
 }
 
