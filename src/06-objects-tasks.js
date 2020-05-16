@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* ************************************************************************************************
  *                                                                                                *
  * Plese read the following tutorial before implementing tasks:                                   *
@@ -20,8 +21,12 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  const result = {};
+  result.width = width;
+  result.height = height;
+  result.getArea = () => result.width * result.height;
+  return result;
 }
 
 
@@ -35,8 +40,20 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  let result = '';
+  if (Array.isArray(obj)) {
+    result = obj.join(',');
+    return `[${result}]`;
+  }
+
+  // eslint-disable-next-line no-restricted-syntax
+  // eslint-disable-next-line guard-for-in
+  for (const key in obj) {
+    result += `"${key}":${obj[key]},`;
+  }
+  result = result.slice(0, result.length - 1);
+  return `{${result}}`;
 }
 
 
@@ -51,8 +68,13 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const obj = JSON.parse(json);
+
+  // eslint-disable-next-line no-proto
+  obj.__proto__ = proto;
+
+  return obj;
 }
 
 
