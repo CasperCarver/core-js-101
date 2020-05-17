@@ -1,3 +1,6 @@
+/* eslint-disable func-names */
+/* eslint-disable prefer-rest-params */
+/* eslint-disable prefer-spread */
 /* *********************************************************************************************
  *                                                                                             *
  * Plese read the following tutorial before implementing tasks:                                *
@@ -23,8 +26,11 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(f, g) {
+  return function (a) {
+    if (arguments.length > 1) return f.call(null, g.apply(null, arguments));
+    return f(g(a));
+  };
 }
 
 
@@ -44,8 +50,8 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return (x) => x ** exponent;
 }
 
 
@@ -62,8 +68,18 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...argum) {
+  if (argum.length < 1) return null;
+
+  return (x) => {
+    let result = 0;
+    for (let i = 0; i < argum.length; i += 1) {
+      const item = argum[i];
+      const c = argum.length - 1 - i;
+      result += item * (x ** c);
+    }
+    return result;
+  };
 }
 
 
